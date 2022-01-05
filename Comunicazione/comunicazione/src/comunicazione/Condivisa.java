@@ -13,6 +13,6 @@ public class Condivisa {
     boolean collegato;
 
     public Condivisa() {
-        collegato = false;
+        collegato = true;
     }
 }

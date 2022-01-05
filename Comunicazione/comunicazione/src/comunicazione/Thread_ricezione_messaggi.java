@@ -48,8 +48,6 @@ public class Thread_ricezione_messaggi extends Thread {
             String IPClient = pacchettoRicezione.getAddress().toString();
             int portClient = pacchettoRicezione.getPort();
             String messaggio = new String(pacchettoRicezione.getData());
-            
-            //HO CONTROLLATO CHE RICEVA IL MESSAGGIO
 
             String[] campi = messaggio.split(";");
 
@@ -57,6 +55,7 @@ public class Thread_ricezione_messaggi extends Thread {
                 int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi giocare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_OPTION) {
                     try {
+                        cond.collegato = true;
                         String p = "y;Ciao;";
 
                         byte[] buffer = p.getBytes();
@@ -73,7 +72,7 @@ public class Thread_ricezione_messaggi extends Thread {
                     }
                 } else if (dialogResult == JOptionPane.NO_OPTION) {
                     try {
-                        String p = "y;No;";
+                        String p = "n;No;";
 
                         byte[] buffer = p.getBytes();
                         DatagramPacket pacchetto = new DatagramPacket(buffer, buffer.length);
@@ -88,6 +87,14 @@ public class Thread_ricezione_messaggi extends Thread {
                         Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+            }
+            if(/*cond.collegato &&*/ campi[0].equals("m")){
+                System.out.println(campi[1]);
+            }
+            try {
+                sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
