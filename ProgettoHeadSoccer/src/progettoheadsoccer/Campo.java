@@ -17,9 +17,10 @@ import java.util.logging.Logger;
  * @author Pellegata_Filippo
  */
 public class Campo extends javax.swing.JFrame {
-Palla p;
+Palla p; // e' necessario avere la palla qui o basterebbe averla dentro il threadpalla? Che se la crea autonomamente
 Disegna d;
 ThreadPalla tp;
+PersonaggioProva player;
     /**
      * Creates new form Campo
      */
@@ -28,16 +29,17 @@ ThreadPalla tp;
         initComponents();
       this.setExtendedState(this.MAXIMIZED_BOTH);
       
-        p=new Palla(this);
+        p=new Palla(getWidth()+500, getHeight()+450);
         initComponents();
         d = new Disegna(this);
-  d.start();
+        d.start();
         
         
         
         
-       tp=new ThreadPalla(p);
+       tp=new ThreadPalla(p, this);
         tp.start();
+        player = new PersonaggioProva(getWidth()+500, getHeight()+450, 50, 100);
      
        
     }
@@ -50,9 +52,10 @@ ThreadPalla tp;
         
           
             gImmagine.fillOval((int)p.getX(), (int)p.getY(), 25, 25);
-        
+         gImmagine.setColor(Color.red);
+        gImmagine.fillRect(player.getX(), player.getY(), player.getLunghezza(), player.getAltezza());
         g.drawImage(immagine, 0, 0, this);
-       
+      
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +82,26 @@ ThreadPalla tp;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean checkInside(int x, int y) {
+        return player.isInside(x, y);
+    }
+    
+    public double getVelocita() {
+        return p.getVelocita();
+    }
+    
+    public int getX(){
+        return p.getX();
+    }
+    
+    public int getY(){
+        return p.getY();
+    }
+    
+    public int getDirezione(){
+        return p.getDirezione();
+    }
+    
     /**
      * @param args the command line arguments
      */

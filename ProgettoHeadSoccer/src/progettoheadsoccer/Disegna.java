@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class Disegna extends Thread {
 
     Campo f;
-    Palla p;
     
    
 
@@ -30,7 +29,11 @@ public class Disegna extends Thread {
         while (true) {
             f.repaint();
             try {
-                Thread.sleep(10);
+                if (f.getVelocita() == 1) {
+                Thread.sleep(1);
+                } else {
+                    Thread.sleep(10);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(Disegna.class.getName()).log(Level.SEVERE, null, ex);
             }
