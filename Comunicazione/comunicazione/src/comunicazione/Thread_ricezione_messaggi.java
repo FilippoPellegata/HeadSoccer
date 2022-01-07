@@ -51,7 +51,7 @@ public class Thread_ricezione_messaggi extends Thread {
 
             String[] campi = messaggio.split(";");
 
-            if (!cond.collegato && campi[0].equals("a")) {
+            /*if (!cond.collegato && campi[0].equals("a")) {
                 int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi giocare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_OPTION) {
                     try {
@@ -87,7 +87,7 @@ public class Thread_ricezione_messaggi extends Thread {
                         Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            }
+            }*/
             if(/*cond.collegato &&*/ campi[0].equals("m")){
                 System.out.println(campi[1]);
             }
