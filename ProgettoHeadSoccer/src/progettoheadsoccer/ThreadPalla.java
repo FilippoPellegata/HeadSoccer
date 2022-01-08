@@ -42,7 +42,38 @@ public class ThreadPalla extends Thread{
         }
         
     }
-    
+    public void Rimbalza(){
+        int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        while (cont<200) {
+                p.decY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            cont++;
+            if(cont==200){
+                stato=1;
+            }
+        }
+        }else{
+            
+            while (p.getY() > campo.getHeight() - 100) {
+                p.incY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        
+        
+    }
     public void saliInizioPartita() {
         int stato = 0;//0= sale //1=scende //2=libero
  
@@ -73,13 +104,13 @@ public class ThreadPalla extends Thread{
             
             p.incY();
             
-            if (campo.checkInside(p.getX(), p.getY())) {
+            if (campo.checkTop(p.getX(), p.getY())) {
                 stato = 2;
-                saliInizioPartita();
+                Rimbalza();
                 return;
             }
             try {
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -82,19 +82,19 @@ PersonaggioProva player;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public boolean checkInside(int x, int y) {
-        return player.isInside(x, y);
+    public boolean checkTop(int x, int y) {
+        return player.isTop(x, y);
     }
     
     public double getVelocita() {
         return p.getVelocita();
     }
     
-    public int getX(){
+    public int getX1(){
         return p.getX();
     }
     
-    public int getY(){
+    public int getY1(){
         return p.getY();
     }
     

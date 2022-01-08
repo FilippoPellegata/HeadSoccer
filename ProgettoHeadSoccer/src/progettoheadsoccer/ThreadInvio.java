@@ -27,8 +27,8 @@ public class ThreadInvio extends Thread{
     
     public ThreadInvio(Campo campo) {
         this.campo = campo;
-        x= campo.getX();
-        y=campo.getY();
+        x= campo.getX1();
+        y=campo.getY1();
         direzione=campo.getDirezione();
         velocita=campo.getVelocita();
         

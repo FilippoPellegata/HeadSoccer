@@ -22,8 +22,15 @@ public class PersonaggioProva {
         this.altezza = altezza;
     }
     
-    public boolean isInside(int x, int y) {
+    public boolean isTop(int x, int y) {
         if (x >= this.x && x <= this.x + lunghezza && y >= this.y && y <= this.y + altezza) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean isBot(int x, int y) {
+        if (x >= this.x && x <= this.x + lunghezza && y >= this.y && y >= this.y + altezza) {
             return true;
         } else {
             return false;
