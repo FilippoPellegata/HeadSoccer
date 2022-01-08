@@ -91,8 +91,11 @@ public class Thread_ricezione_messaggi extends Thread {
             if(/*cond.collegato &&*/ campi[0].equals("m")){
                 System.out.println(campi[1]);
             }
+            if(/*cond.collegato &&*/ campi[0].equals("s")){
+                System.out.println(campi[1]);
+            }
             try {
-                sleep(100);
+                sleep(2);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
             }
