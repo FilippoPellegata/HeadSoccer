@@ -86,6 +86,16 @@ PersonaggioProva player;
         return player.isTop(x, y);
     }
     
+    public boolean checkBot(int x, int y) {
+        return player.isTop(x, y);
+    }
+    public boolean checkLeft(int x, int y) {
+        return player.isTop(x, y);
+    }
+    public boolean checkRight(int x, int y) {
+        return player.isTop(x, y);
+    }
+    
     public double getVelocita() {
         return p.getVelocita();
     }

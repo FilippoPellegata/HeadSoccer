@@ -36,6 +36,22 @@ public class PersonaggioProva {
             return false;
         }
     }
+    
+    public boolean isLeft(int x, int y) {
+        if (x == this.x  && (y >= this.y && y <= this.y + altezza)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+     public boolean isRight(int x, int y) {
+        if (x == this.x + lunghezza && (y >= this.y && y <= this.y + altezza)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public int getX() {
         return x;

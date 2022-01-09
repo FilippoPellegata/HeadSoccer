@@ -42,38 +42,7 @@ public class ThreadPalla extends Thread{
         }
         
     }
-    public void Rimbalza(){
-        int stato = 0;//0= sale //1=scende //2=libero
-        int cont=0;
-        if(stato==0){
-        while (cont<200) {
-                p.decY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            cont++;
-            if(cont==200){
-                stato=1;
-            }
-        }
-        }else{
-            
-            while (p.getY() > campo.getHeight() - 100) {
-                p.incY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-        }
-        }
-        
-        
-        
-    }
+    
     public void saliInizioPartita() {
         int stato = 0;//0= sale //1=scende //2=libero
  
@@ -106,7 +75,22 @@ public class ThreadPalla extends Thread{
             
             if (campo.checkTop(p.getX(), p.getY())) {
                 stato = 2;
-                Rimbalza();
+                RimbalzaSopra();
+                return;
+            }
+            if (campo.checkBot(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSotto();
+                return;
+            }
+            if (campo.checkLeft(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSinistra();
+                return;
+            }
+            if (campo.checkRight(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaDestra();
                 return;
             }
             try {
@@ -121,7 +105,135 @@ public class ThreadPalla extends Thread{
         }
 
     }
+    public void RimbalzaSopra(){
+        int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        while (cont<200) {
+                p.decY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            cont++;
+            if(cont==200){
+                stato=1;
+            }
+        }
+        }else{
+            
+            while (p.getY() > campo.getHeight() - 100) {
+                p.incY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        
+        
+    }
     
     
+    public void RimbalzaSotto(){
+        int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        while (cont<200) {
+                p.decY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            cont++;
+            if(cont==200){
+                stato=1;
+            }
+        }
+        }else{
+            
+            while (p.getY() > campo.getHeight() - 100) {
+                p.incY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        
+        
+    }
+    public void RimbalzaSinistra(){
+        int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        while (cont<200) {
+                p.decY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            cont++;
+            if(cont==200){
+                stato=1;
+            }
+        }
+        }else{
+            
+            while (p.getY() > campo.getHeight() - 100) {
+                p.incY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        
+        
+    }
+    public void RimbalzaDestra(){
+        int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        while (cont<200) {
+                p.decY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            cont++;
+            if(cont==200){
+                stato=1;
+            }
+        }
+        }else{
+            
+            while (p.getY() > campo.getHeight() - 100) {
+                p.incY();
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        
+        
+    }
     
 }
