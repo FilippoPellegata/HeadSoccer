@@ -30,7 +30,7 @@ public class Disegna extends Thread {
             f.repaint();
             try {
                 if (f.getVelocita() == 1) {
-                Thread.sleep(1);
+                Thread.sleep(1000/33);
                 } else {
                     Thread.sleep(10);
                 }

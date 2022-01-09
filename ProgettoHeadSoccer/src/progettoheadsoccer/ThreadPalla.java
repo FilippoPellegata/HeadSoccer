@@ -121,10 +121,35 @@ public class ThreadPalla extends Thread{
                 stato=1;
             }
         }
-        }else{
+        }
+        if(stato==1){
             
-            while (p.getY() > campo.getHeight() - 100) {
+            while (p.getY() < campo.getHeight() - 200) {
+                if (campo.checkTop(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSopra();
+                return;
+            }
+            if (campo.checkBot(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSotto();
+                return;
+            }
+            if (campo.checkLeft(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSinistra();
+                return;
+            }
+            if (campo.checkRight(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaDestra();
+                return;
+            }
+                else{
+                        
+                        
                 p.incY();
+                        }
                  try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {

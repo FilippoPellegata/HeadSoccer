@@ -24,6 +24,7 @@ Palla p; // e' necessario avere la palla qui o basterebbe averla dentro il threa
 Disegna d;
 ThreadPalla tp;
 PersonaggioProva player;
+Porta porta;
     /**
      * Creates new form Campo
      */
@@ -31,7 +32,7 @@ PersonaggioProva player;
          
         initComponents();
       this.setExtendedState(this.MAXIMIZED_BOTH);
-      
+        porta=new Porta(this);
         p=new Palla(getWidth()+500, getHeight()+450);
         initComponents();
         d = new Disegna(this);
@@ -48,18 +49,20 @@ PersonaggioProva player;
     }
  @Override
     public void paint(Graphics g) {
+         Image immagine = createImage(this.getWidth(),this.getHeight());
+        Graphics gImmagine = immagine.getGraphics();
+        
         Image img = null;
     try {
          img= ImageIO.read(new File("background.jpg"));
     } catch (IOException ex) {
         Logger.getLogger(Campo.class.getName()).log(Level.SEVERE, null, ex);
     }
-        Image immagine = createImage(this.getWidth(),this.getHeight());
-        Graphics gImmagine = immagine.getGraphics();
+       
         //scorri tutta la lista e ogni volta che trovi una pallina fai questo 
         gImmagine.clearRect(0, 0, this.getWidth(), this.getHeight());
         //sfondo
-       //gImmagine.drawImage(img, 0, 0, null);
+       gImmagine.drawImage(img, 0, 0, null);
        
         
         //campo
@@ -73,6 +76,10 @@ PersonaggioProva player;
          gImmagine.setColor(Color.red);
         gImmagine.fillRect(player.getX(), player.getY(), player.getLunghezza(), player.getAltezza());
         
+        
+        //porta
+        gImmagine.setColor(Color.red);
+        gImmagine.fillRect(getXPorta(), getYPorta(),getX1Porta(),getY1Porta());
         
        
         g.drawImage(immagine, 0, 0, this);
@@ -132,6 +139,24 @@ PersonaggioProva player;
     public int getDirezione(){
         return p.getDirezione();
     }
+    
+    public int getXPorta(){
+        return porta.getX();
+    }
+    public int getYPorta(){
+        return porta.getY();
+    }
+    public int getX1Porta(){
+        return porta.getX1();
+    }
+    public int getY1Porta(){
+        return porta.getY1();
+    }
+    
+    
+    
+    
+    
     
     /**
      * @param args the command line arguments
