@@ -78,10 +78,32 @@ Porta porta;
         
         
         //porta
-        gImmagine.setColor(Color.red);
-        gImmagine.fillRect(getXPorta(), getYPorta(),getX1Porta(),getY1Porta());
+        //rete
+        gImmagine.setColor(Color.white);
+        int cont=5;
+        for (int i = 0; i < 43; i++) {
+            
+          gImmagine.fillRect(porta.getxTraversa(), porta.getyTraversa()+cont ,porta.getLarghezzaTraversa()-20, 2);
+           
+            cont = cont+5;
+     }
+        cont=0;
+       for (int i = 0; i < 20; i++) {
+         gImmagine.fillRect(porta.getxTraversa()+cont, porta.getyTraversa(),2, porta.getLunghezzaPalo());
+         cont=cont+5;
+     }
+         
+                
+           //traversa
+      gImmagine.setColor(Color.red);
+        gImmagine.fillRect(porta.getxTraversa(), porta.getyTraversa() ,porta.getLarghezzaTraversa(), porta.getLunghezzaTraversa());
+        //palo
+       gImmagine.setColor(Color.red);
+        gImmagine.fillRect(porta.getxPalo(), porta.getyPalo() ,porta.getLarghezzaPalo(), porta.getLunghezzaPalo());
         
-       
+        
+        
+        
         g.drawImage(immagine, 0, 0, this);
       
     }
@@ -140,18 +162,7 @@ Porta porta;
         return p.getDirezione();
     }
     
-    public int getXPorta(){
-        return porta.getX();
-    }
-    public int getYPorta(){
-        return porta.getY();
-    }
-    public int getX1Porta(){
-        return porta.getX1();
-    }
-    public int getY1Porta(){
-        return porta.getY1();
-    }
+    
     
     
     

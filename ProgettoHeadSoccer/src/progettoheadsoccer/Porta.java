@@ -11,35 +11,62 @@ package progettoheadsoccer;
  */
 public class Porta {
     
-    int x;
-    int y;
-    int x1;
-    int y1;
+    int xTraversa;
+    int yTraversa;
+    int larghezzaTraversa;
+    int lunghezzaTraversa;
     Campo campo;
+    int xPalo;
+    int yPalo;
+    int lunghezzaPalo;
+    int larghezzaPalo;
 
     public Porta(Campo campo) {
         this.campo = campo;
-        x=0;
-       x1=100;
-       y=700;
-       y1=220;
+        xTraversa=0;
+       larghezzaTraversa=100;
+       yTraversa=700;
+       lunghezzaTraversa=20;
+       
+       xPalo=80;
+       larghezzaPalo=20;
+       yPalo=700;
+       lunghezzaPalo=220;
     }
 
-    public int getX() {
-        return x;
+    public int getxTraversa() {
+        return xTraversa;
     }
 
-    public int getY() {
-        return y;
+    public int getyTraversa() {
+        return yTraversa;
     }
 
-    public int getX1() {
-        return x1;
+    public int getLarghezzaTraversa() {
+        return larghezzaTraversa;
     }
 
-    public int getY1() {
-        return y1;
+    public int getLunghezzaTraversa() {
+        return lunghezzaTraversa;
     }
+
+    public int getxPalo() {
+        return xPalo;
+    }
+
+    public int getyPalo() {
+        return yPalo;
+    }
+
+    public int getLunghezzaPalo() {
+        return lunghezzaPalo;
+    }
+
+    public int getLarghezzaPalo() {
+        return larghezzaPalo;
+    }
+
+    
     
     
     
