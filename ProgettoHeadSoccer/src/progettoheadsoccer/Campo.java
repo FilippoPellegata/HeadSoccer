@@ -8,9 +8,12 @@ package progettoheadsoccer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -45,15 +48,33 @@ PersonaggioProva player;
     }
  @Override
     public void paint(Graphics g) {
+        Image img = null;
+    try {
+         img= ImageIO.read(new File("background.jpg"));
+    } catch (IOException ex) {
+        Logger.getLogger(Campo.class.getName()).log(Level.SEVERE, null, ex);
+    }
         Image immagine = createImage(this.getWidth(),this.getHeight());
         Graphics gImmagine = immagine.getGraphics();
         //scorri tutta la lista e ogni volta che trovi una pallina fai questo 
         gImmagine.clearRect(0, 0, this.getWidth(), this.getHeight());
+        //sfondo
+       //gImmagine.drawImage(img, 0, 0, null);
+       
         
-          
+        //campo
+         gImmagine.setColor(Color.green.darker());
+        gImmagine.fill3DRect(0, 850, 1950, 900, rootPaneCheckingEnabled);
+        
+        //palla
+          gImmagine.setColor(Color.black.darker());
             gImmagine.fillOval((int)p.getX(), (int)p.getY(), 25, 25);
+            //player
          gImmagine.setColor(Color.red);
         gImmagine.fillRect(player.getX(), player.getY(), player.getLunghezza(), player.getAltezza());
+        
+        
+       
         g.drawImage(immagine, 0, 0, this);
       
     }
