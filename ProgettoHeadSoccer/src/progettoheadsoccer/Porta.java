@@ -21,17 +21,17 @@ public class Porta {
     int lunghezzaPalo;
     int larghezzaPalo;
 
-    public Porta(Campo campo) {
+    public Porta(Campo campo, int x, int y, int larghezza, int lunghezza, int xp, int yp, int larp, int lungp) {
         this.campo = campo;
-        xTraversa=0;
-       larghezzaTraversa=100;
-       yTraversa=700;
-       lunghezzaTraversa=20;
+        xTraversa=x;
+       larghezzaTraversa=larghezza;
+       yTraversa=y;
+       lunghezzaTraversa=lunghezza;
        
-       xPalo=80;
-       larghezzaPalo=20;
-       yPalo=700;
-       lunghezzaPalo=220;
+       xPalo=xp;
+       larghezzaPalo=larp;
+       yPalo=yp;
+       lunghezzaPalo=lungp;
     }
 
     public int getxTraversa() {

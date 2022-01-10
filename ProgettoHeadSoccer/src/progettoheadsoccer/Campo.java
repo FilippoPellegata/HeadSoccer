@@ -25,6 +25,7 @@ Disegna d;
 ThreadPalla tp;
 PersonaggioProva player;
 Porta porta;
+Porta porta2;
     /**
      * Creates new form Campo
      */
@@ -32,7 +33,8 @@ Porta porta;
          
         initComponents();
       this.setExtendedState(this.MAXIMIZED_BOTH);
-        porta=new Porta(this);
+        porta=new Porta(this,0,700,100,20,80,700,20,220);
+        porta2=new Porta(this,1830,700,100,20,1830,700,20,220);
         p=new Palla(getWidth()+500, getHeight()+450);
         initComponents();
         d = new Disegna(this);
@@ -101,6 +103,27 @@ Porta porta;
        gImmagine.setColor(Color.red);
         gImmagine.fillRect(porta.getxPalo(), porta.getyPalo() ,porta.getLarghezzaPalo(), porta.getLunghezzaPalo());
         
+        //porta 2
+        //rete
+        gImmagine.setColor(Color.white);
+         cont=5;
+        for (int i = 0; i < 43; i++) {
+            
+          gImmagine.fillRect(porta2.getxTraversa(), porta2.getyTraversa()+cont ,porta2.getLarghezzaTraversa(), 2);
+           
+            cont = cont+5;
+     }
+        cont=0;
+       for (int i = 0; i < 20; i++) {
+         gImmagine.fillRect(porta2.getxTraversa()+cont, porta2.getyTraversa(),2, porta2.getLunghezzaPalo());
+         cont=cont+5;
+     }
+             //traversa2
+      gImmagine.setColor(Color.red);
+        gImmagine.fillRect(porta2.getxTraversa(), porta2.getyTraversa() ,porta2.getLarghezzaTraversa(), porta2.getLunghezzaTraversa());
+        //palo2
+       gImmagine.setColor(Color.red);
+        gImmagine.fillRect(porta2.getxPalo(), porta2.getyPalo() ,porta2.getLarghezzaPalo(), porta2.getLunghezzaPalo());
         
         
         
