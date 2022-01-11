@@ -74,39 +74,42 @@ public class ThreadPalla extends Thread{
             p.incY();
             
             if (campo.checkTop(p.getX(), p.getY())) {
-                stato = 2;
+               
                 RimbalzaSopra();
+              
                 
             }
             if (campo.checkBot(p.getX(), p.getY())) {
-                stato = 2;
+               
                 RimbalzaSotto();
                 
             }
             if (campo.checkLeft(p.getX(), p.getY())) {
-                stato = 2;
+               
                 RimbalzaSinistra();
                
             }
             if (campo.checkRight(p.getX(), p.getY())) {
-                stato = 2;
+             
                 RimbalzaDestra();
                 
+            }
+            
+            if (p.getY() > campo.getHeight() - 100) {
+                p.decY();
+                
+                System.out.println("stop discesa");
             }
             try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            if (p.getY() > campo.getHeight() - 100) {
-                p.decY();
-                
-                System.out.println("stop discesa");
-            }
         }
 
     }
     public void RimbalzaSopra(){
+         p.setDirezione(1);
         int stato = 0;//0= sale //1=scende //2=libero
         int cont=0;
         if(stato==0){
@@ -160,12 +163,13 @@ public class ThreadPalla extends Thread{
         }
         }
         
-        p.setDirezione(1);
+       
         
     }
     
     
     public void RimbalzaSotto(){
+         p.setDirezione(2);
        int stato = 0;//0= sale //1=scende //2=libero
         int cont=0;
         if(stato==0){
@@ -210,72 +214,84 @@ public class ThreadPalla extends Thread{
         }
         }
         
-         p.setDirezione(2);
+        
         
     }
     public void RimbalzaSinistra(){
-        int stato = 0;//0= sale //1=scende //2=libero
-        int cont=0;
+        int stato = 0;
+          p.setDirezione(3);
         if(stato==0){
-        while (cont<200) {
-                p.decY();
+        while (campo.checkGol()==false) {
+                p.decX();
+                  
                  try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            cont++;
-            if(cont==200){
-                stato=1;
+             if (campo.checkTop(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSopra();
+                return;
+            }
+            if (campo.checkBot(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSotto();
+                return;
+            }
+            if (campo.checkLeft(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSinistra();
+                return;
+            }
+            if (campo.checkRight(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaDestra();
+                return;
             }
         }
-        }else{
-            
-            while (p.getY() > campo.getHeight() - 100) {
-                p.incY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-        }
         }
         
         
-       p.setDirezione(3);  
+      
     }
+    
+    
+    
     public void RimbalzaDestra(){
-        int stato = 0;//0= sale //1=scende //2=libero
-        int cont=0;
+        int stato = 0;
+          p.setDirezione(3);
         if(stato==0){
-        while (cont<200) {
-                p.decY();
+        while (campo.checkGol()==false) {
+                p.incX();
+                  
                  try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            cont++;
-            if(cont==200){
-                stato=1;
+             if (campo.checkTop(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSopra();
+                return;
+            }
+            if (campo.checkBot(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSotto();
+                return;
+            }
+            if (campo.checkLeft(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSinistra();
+                return;
+            }
+            if (campo.checkRight(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaDestra();
+                return;
             }
         }
-        }else{
-            
-            while (p.getY() > campo.getHeight() - 100) {
-                p.incY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
         }
-        }
-        
-        
-        p.setDirezione(4);
     }
      
 }

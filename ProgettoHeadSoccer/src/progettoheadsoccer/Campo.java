@@ -26,6 +26,8 @@ ThreadPalla tp;
 PersonaggioProva player;
 Porta porta;
 Porta porta2;
+ThreadInvio tInvio;
+ThreadRicevi tRicevi;
     /**
      * Creates new form Campo
      */
@@ -40,12 +42,15 @@ Porta porta2;
         d = new Disegna(this);
         d.start();
         
-        
+          player = new PersonaggioProva(getWidth()+500, getHeight()+450, 50, 100);
         
         
        tp=new ThreadPalla(p, this);
         tp.start();
-        player = new PersonaggioProva(getWidth()+500, getHeight()+450, 50, 100);
+      tInvio=new ThreadInvio(this);
+      tInvio.start();
+      tRicevi=new ThreadRicevi(this);
+      tRicevi.start();
      
        
     }
@@ -75,7 +80,7 @@ Porta porta2;
           gImmagine.setColor(Color.black.darker());
             gImmagine.fillOval((int)p.getX(), (int)p.getY(), 25, 25);
             //player
-         gImmagine.setColor(Color.red);
+           gImmagine.setColor(Color.red);
         gImmagine.fillRect(player.getX(), player.getY(), player.getLunghezza(), player.getAltezza());
         
         

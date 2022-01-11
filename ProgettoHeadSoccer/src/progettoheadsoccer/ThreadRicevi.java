@@ -8,9 +8,7 @@ package progettoheadsoccer;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,14 +16,14 @@ import java.util.logging.Logger;
  *
  * @author Pelle
  */
-public class ThreadInvio extends Thread{
+public class ThreadRicevi extends Thread{
     Campo campo;
     int x;
     int y;
     double velocita;
     int direzione;
     
-    public ThreadInvio(Campo campo) {
+    public ThreadRicevi(Campo campo) {
         this.campo = campo;
         x= campo.getX1();
         y=campo.getY1();
@@ -34,11 +32,10 @@ public class ThreadInvio extends Thread{
         
     }
 
-    
-    
     @Override
     public void run() {
-        DatagramSocket server = null;
+        
+    DatagramSocket server = null;
         try {
             server = new DatagramSocket();
         } catch (SocketException ex) {
@@ -46,35 +43,37 @@ public class ThreadInvio extends Thread{
         }
 
 byte[] buffer = new byte[1500];
-        String risposta = "P;"+x+";"+y+";"+direzione+";"+velocita+";";
-
-byte[] responseBuffer = risposta.getBytes();
-
-DatagramPacket responsePacket = new DatagramPacket(responseBuffer, responseBuffer.length);
+    
+    
+    
+     //ascoltare
+    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
         try {
-            responsePacket.setAddress(InetAddress.getByName("localhost"));
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ThreadInvio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-     responsePacket.setPort(12346); //porta oricchio
-     
-     try {
-            server.send(responsePacket);
+            server.receive(packet);
         } catch (IOException ex) {
             Logger.getLogger(ThreadInvio.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
+
+byte[] dataReceived = packet.getData(); // copia del buffer dichiarato sopra
+
+String messaggioRicevuto = new String(dataReceived, 0, packet.getLength());
+
+    String[] mex=messaggioRicevuto.split(";");
+    
+    campo.p.setX( Integer.parseInt(mex[1]) );
+     campo.p.setY (Integer.parseInt(mex[2]) );
+      campo.p.setDirezione(Integer.parseInt(mex[3]) );
+       campo.p.setVelocita(Integer.parseInt(mex[4]) );
+    
+    
+
+        
         
         try {
             Thread.sleep(20);
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadInvio.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
-    
-    
+}
 }
