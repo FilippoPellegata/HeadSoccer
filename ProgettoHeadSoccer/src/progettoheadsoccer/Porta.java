@@ -11,15 +11,15 @@ package progettoheadsoccer;
  */
 public class Porta {
     
-    int xTraversa;
-    int yTraversa;
-    int larghezzaTraversa;
-    int lunghezzaTraversa;
+    private int xTraversa;
+    private int yTraversa;
+    private int larghezzaTraversa;
+    private int lunghezzaTraversa;
     Campo campo;
-    int xPalo;
-    int yPalo;
-    int lunghezzaPalo;
-    int larghezzaPalo;
+    private int xPalo;
+    private int yPalo;
+    private int lunghezzaPalo;
+    private int larghezzaPalo;
 
     public Porta(Campo campo, int x, int y, int larghezza, int lunghezza, int xp, int yp, int larp, int lungp) {
         this.campo = campo;
@@ -66,7 +66,9 @@ public class Porta {
         return larghezzaPalo;
     }
 
-    
+    public boolean Gol(int xPalla, int yPalla){
+        return true;
+    }
     
     
     

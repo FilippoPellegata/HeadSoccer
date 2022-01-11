@@ -185,7 +185,9 @@ Porta porta2;
         return p.getDirezione();
     }
     
-    
+    public boolean checkGol(){
+        return porta.Gol(p.getX(),p.getY());
+    }
     
     
     

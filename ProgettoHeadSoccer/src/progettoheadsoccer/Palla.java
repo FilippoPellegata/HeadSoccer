@@ -22,7 +22,7 @@ public class Palla {
     //due velocita 1: velocità palla normale
     //              2: velocità con tiro speciale
     private double velocita;
-    private int direzione;
+    private int direzione; //1=sopra  2=sotto  3= sinistra  4=destra
 
     public Palla(int x, int y) {
         this.x = x;
@@ -54,7 +54,20 @@ public class Palla {
     public void decY() {
         y--;
     }
+    
+    public void incX() {
+        x++;
+    }
+    
+    public void decX() {
+        y--;
+    }
 
+    public void setDirezione(int direzione) {
+        this.direzione = direzione;
+    }
+
+    
     public void setVelocita(double velocita) {
         this.velocita = velocita;
     }

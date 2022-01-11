@@ -76,22 +76,22 @@ public class ThreadPalla extends Thread{
             if (campo.checkTop(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSopra();
-                return;
+                
             }
             if (campo.checkBot(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSotto();
-                return;
+                
             }
             if (campo.checkLeft(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSinistra();
-                return;
+               
             }
             if (campo.checkRight(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaDestra();
-                return;
+                
             }
             try {
                     Thread.sleep(1);
@@ -99,7 +99,8 @@ public class ThreadPalla extends Thread{
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }
             if (p.getY() > campo.getHeight() - 100) {
-                stato = 2;
+                p.decY();
+                
                 System.out.println("stop discesa");
             }
         }
@@ -122,6 +123,56 @@ public class ThreadPalla extends Thread{
             }
         }
         }
+        if(stato==1){
+            
+            while (p.getY() < campo.getHeight() - 100) {
+                if (campo.checkTop(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSopra();
+                return;
+            }
+            if (campo.checkBot(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSotto();
+                return;
+            }
+            if (campo.checkLeft(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaSinistra();
+                return;
+            }
+            if (campo.checkRight(p.getX(), p.getY())) {
+                stato = 2;
+                RimbalzaDestra();
+                return;
+            }
+                else{
+                        
+                        
+                p.incY();
+                        }
+                 try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        }
+        }
+        
+        p.setDirezione(1);
+        
+    }
+    
+    
+    public void RimbalzaSotto(){
+       int stato = 0;//0= sale //1=scende //2=libero
+        int cont=0;
+        if(stato==0){
+        scendiInizioPartita();
+        stato=1;
+        }
+        
         if(stato==1){
             
             while (p.getY() < campo.getHeight() - 200) {
@@ -159,41 +210,7 @@ public class ThreadPalla extends Thread{
         }
         }
         
-        
-        
-    }
-    
-    
-    public void RimbalzaSotto(){
-        int stato = 0;//0= sale //1=scende //2=libero
-        int cont=0;
-        if(stato==0){
-        while (cont<200) {
-                p.decY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            cont++;
-            if(cont==200){
-                stato=1;
-            }
-        }
-        }else{
-            
-            while (p.getY() > campo.getHeight() - 100) {
-                p.incY();
-                 try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-        }
-        }
-        
-        
+         p.setDirezione(2);
         
     }
     public void RimbalzaSinistra(){
@@ -226,7 +243,7 @@ public class ThreadPalla extends Thread{
         }
         
         
-        
+       p.setDirezione(3);  
     }
     public void RimbalzaDestra(){
         int stato = 0;//0= sale //1=scende //2=libero
@@ -258,7 +275,7 @@ public class ThreadPalla extends Thread{
         }
         
         
-        
+        p.setDirezione(4);
     }
-    
+     
 }
