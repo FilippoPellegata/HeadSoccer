@@ -69,7 +69,7 @@ public class Palla {
     }
     
     public void decX() {
-        y--;
+        x--;
     }
 
     public void setDirezione(int direzione) {

@@ -31,8 +31,10 @@ public class ThreadPalla extends Thread{
     public void run() {
         int stato=0;
         while(stato==0){
+            
             saliInizioPartita();
             scendiInizioPartita();
+            
             try {
                 Thread.sleep(10);
             } catch (InterruptedException ex) {
@@ -61,7 +63,8 @@ public class ThreadPalla extends Thread{
                 stato = 1;
                 System.out.println("stop salita");
             }
-        }
+        
+ }
     }
     
     public void scendiInizioPartita() {
@@ -94,6 +97,7 @@ public class ThreadPalla extends Thread{
                 RimbalzaDestra();
                 
             }
+           
             
             if (p.getY() > campo.getHeight() - 100) {
                 p.decY();
@@ -106,7 +110,7 @@ public class ThreadPalla extends Thread{
                     Logger.getLogger(Palla.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
-
+        
     }
     public void RimbalzaSopra(){
          p.setDirezione(1);

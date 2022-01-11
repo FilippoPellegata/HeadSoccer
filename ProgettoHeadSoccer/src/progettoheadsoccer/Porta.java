@@ -67,7 +67,17 @@ public class Porta {
     }
 
     public boolean Gol(int xPalla, int yPalla){
+        if(xPalla<xPalo&& yPalla>yTraversa){
+          System.out.println("gol");
+                campo.p.setX(campo.getWidth()+500);
+                campo.p.setY(campo.getHeight()+450);
+                campo.p.setDirezione(0);
+               
+        
         return true;
+        }else{
+            return false;
+        }
     }
     
     
