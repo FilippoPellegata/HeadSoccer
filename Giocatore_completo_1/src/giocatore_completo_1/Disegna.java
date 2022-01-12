@@ -14,11 +14,11 @@ import java.util.logging.Logger;
  */
 public class Disegna extends Thread {
 
-    JFrame f;
+    FrameGioco f;
     int FPS;
     
     
-    public Disegna(JFrame f, int i) {
+    public Disegna(FrameGioco f, int i) {
         this.f = f;
         FPS = 1000 / i;
     }

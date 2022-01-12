@@ -22,27 +22,16 @@ import javax.swing.JOptionPane;
 public class Thread_ricezione_messaggi extends Thread {
 
     JCondivisa cond;
-    DatagramSocket server;
     JGiocatore giocatore_nemico;
+    Gestore_messaggio gm;
+    boolean valido;
     int larghezza_frame;
-
-    public Thread_ricezione_messaggi(JCondivisa cond, JGiocatore giocatore_nemico, int lf) {
+    
+    public Thread_ricezione_messaggi(JCondivisa cond, JGiocatore giocatore_nemico, int lf, Gestore_messaggio gm) {
         this.cond = cond;
         this.giocatore_nemico = giocatore_nemico;
-        try {
-            //server = new DatagramSocket(666);
-            
-            /*-------------------------------------------------------------------------------------------------------------*/
-            
-            //TENGO LA PORTA 665 ANZICHE LA 666 PERCHE COSI IL PROGRAMMA NON MANDA LA POSIZIONE DEL GIOCATORE A SE STESSO
-            //DATO CHE LAVORO CON DUE PROGRAMMI COMUNICANTI SU UN PC SOLO
-            server = new DatagramSocket(665);
-            
-            /*-------------------------------------------------------------------------------------------------------------*/
-            
-        } catch (SocketException ex) {
-            Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.gm = gm;
+        valido = false;
         larghezza_frame = lf;
     }
 
@@ -51,9 +40,8 @@ public class Thread_ricezione_messaggi extends Thread {
         while (true) {
             byte[] bufferRicezione = new byte[1500];
             DatagramPacket pacchettoRicezione = new DatagramPacket(bufferRicezione, bufferRicezione.length);
-
             try {
-                server.receive(pacchettoRicezione);
+                cond.server.receive(pacchettoRicezione);
             } catch (IOException ex) {
                 Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -64,50 +52,21 @@ public class Thread_ricezione_messaggi extends Thread {
 
             String[] campi = messaggio.split(";");
 
-            /*if (!cond.collegato && campi[0].equals("a")) {
-                int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi giocare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    try {
-                        cond.collegato = true;
-                        String p = "y;Ciao;";
+            valido = false;
 
-                        byte[] buffer = p.getBytes();
-                        DatagramPacket pacchetto = new DatagramPacket(buffer, buffer.length);
-                        InetAddress indirizzo = InetAddress.getByName("localhost");
-                        pacchetto.setAddress(indirizzo);
-                        pacchetto.setPort(12345);
-
-                        server.send(pacchetto);
-                    } catch (UnknownHostException ex) {
-                        Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (dialogResult == JOptionPane.NO_OPTION) {
-                    try {
-                        String p = "n;No;";
-
-                        byte[] buffer = p.getBytes();
-                        DatagramPacket pacchetto = new DatagramPacket(buffer, buffer.length);
-                        InetAddress indirizzo = InetAddress.getByName("localhost");
-                        pacchetto.setAddress(indirizzo);
-                        pacchetto.setPort(12345);
-
-                        server.send(pacchetto);
-                    } catch (UnknownHostException ex) {
-                        Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Thread_ricezione_messaggi.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }*/
-            if(/*cond.collegato &&*/ campi[0].equals("m")){
+            if (cond.inAttesa && campi[0].equals("y")) {
+                cond.inAttesa = false;
+                cond.collegato = true;
+            }
+            
+            if (cond.collegato && campi[0].equals("m")) {
                 //System.out.println(campi[1]);
                 int pos_x_avversario = Integer.parseInt(campi[1]);
                 //int new_pos = (pos_avversario*larghezza_frame)/cond.larghezza_frame_avversario;
                 int new_pos = larghezza_frame - pos_x_avversario;
                 giocatore_nemico.setPos_x(new_pos);
-            }if(/*cond.collegato &&*/ campi[0].equals("s")){
+            }
+            if (cond.collegato && campi[0].equals("s")) {
                 //System.out.println(campi[1]);
                 int pos_y_avversario = Integer.parseInt(campi[1]);
                 giocatore_nemico.setPos_y(pos_y_avversario);

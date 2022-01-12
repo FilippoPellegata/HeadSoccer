@@ -20,13 +20,15 @@ import java.util.logging.Logger;
  */
 public class Gestore_messaggio {
     private DatagramSocket client;
+    JCondivisa cond;
 
-    public Gestore_messaggio(){
+    public Gestore_messaggio(JCondivisa cond){
         try {
             client = new DatagramSocket();
         } catch (SocketException ex) {
             Logger.getLogger(Gestore_messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.cond = cond;
     }
     
     public void invia(String operazione, int data) throws UnknownHostException, IOException{
@@ -34,7 +36,33 @@ public class Gestore_messaggio {
         byte[] responseBuffer = risposta.getBytes();
         
         DatagramPacket pacchetto = new DatagramPacket(responseBuffer, responseBuffer.length);
-        pacchetto.setAddress(InetAddress.getByName("localhost"));
+        //pacchetto.setAddress(InetAddress.getByName("localhost"));
+        pacchetto.setAddress(InetAddress.getByName(cond.getIndirizzo_avversario()));
+        pacchetto.setPort(666);
+
+        client.send(pacchetto);
+        
+        /*if(cond.destinatario.getIndirizzo()!=null){
+            DatagramPacket responsePacket = new DatagramPacket(responseBuffer, responseBuffer.length);
+            responsePacket.setAddress(cond.destinatario.getIndirizzo());
+            responsePacket.setPort(12345);
+            try {
+                server.send(responsePacket);
+            } catch (IOException ex) {
+                Logger.getLogger(Gestore_messaggio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
+        }
+        return false;*/
+    }
+    
+    public void invia(String operazione, String data) throws UnknownHostException, IOException{
+        String risposta = operazione + ";" + data + ";";
+        byte[] responseBuffer = risposta.getBytes();
+        
+        DatagramPacket pacchetto = new DatagramPacket(responseBuffer, responseBuffer.length);
+        //pacchetto.setAddress(InetAddress.getByName("localhost"));
+        pacchetto.setAddress(InetAddress.getByName(cond.getIndirizzo_avversario()));
         pacchetto.setPort(666);
 
         client.send(pacchetto);

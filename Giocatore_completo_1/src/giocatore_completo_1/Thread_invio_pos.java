@@ -20,8 +20,8 @@ public class Thread_invio_pos extends Thread {
     int FPS;
     int vecchia_pos;
 
-    public Thread_invio_pos(JGiocatore g, int i, int lf) {
-        gm = new Gestore_messaggio();
+    public Thread_invio_pos(JGiocatore g, int i, int lf, Gestore_messaggio gm) {
+        this.gm = gm;
         this.g = g;
         FPS = 1000 / i;
         vecchia_pos = -1;

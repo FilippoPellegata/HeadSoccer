@@ -22,7 +22,7 @@ public class Thread_salta extends Thread {
     public Thread_salta(JGiocatore g, JCondivisa c) {
         this.g = g;
         this.c = c;
-        gm = new Gestore_messaggio();
+        gm = new Gestore_messaggio(c);
     }
 
     @Override
