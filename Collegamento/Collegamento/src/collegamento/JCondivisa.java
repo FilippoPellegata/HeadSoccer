@@ -12,10 +12,11 @@ import java.net.InetAddress;
  * @author HP
  */
 public class JCondivisa {
+    String nome;
+    String nome_avversario;
     String indirizzo_avversario;
     boolean collegato;
     boolean inAttesa;
-    String nome_avversario;
     boolean chiesto_io;
 
     public JCondivisa() {
@@ -23,7 +24,8 @@ public class JCondivisa {
         collegato = false;
         inAttesa = false;
         chiesto_io = false; 
-        nome_avversario = "...";
+        nome_avversario = "";
+        nome = "";
     }
 
     public String getIndirizzo_avversario() {

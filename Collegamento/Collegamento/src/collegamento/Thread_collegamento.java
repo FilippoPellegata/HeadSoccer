@@ -74,6 +74,7 @@ public class Thread_collegamento extends Thread {
                         if (dialogResult == JOptionPane.YES_OPTION) {
                             String nome = JOptionPane.showInputDialog(null, "Inserisci il tuo nickname");
                             gm.invia("y", nome);
+                            cond.nome = nome;
                             cond.inAttesa = true;
                         } else if (dialogResult == JOptionPane.NO_OPTION) {
                             try {
