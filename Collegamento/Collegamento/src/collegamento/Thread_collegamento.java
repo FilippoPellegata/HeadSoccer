@@ -31,7 +31,7 @@ public class Thread_collegamento extends Thread {
         } catch (SocketException ex) {
             Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        gm = new Gestore_messaggio();
+        gm = new Gestore_messaggio(cond);
         valido = false;
     }
 
@@ -54,27 +54,31 @@ public class Thread_collegamento extends Thread {
 
             String[] campi = messaggio.split(";");
 
-            if (campi[0].equals("c") && !cond.inAttesa) {
-                cond.setIndirizzo(pacchettoRicezione.getAddress());
+            if (campi[0].equals("c") && !cond.inAttesa && !cond.chiesto_io) {
+                String indirizzo = pacchettoRicezione.getAddress().toString().substring(1, pacchettoRicezione.getAddress().toString().length());
+                cond.setIndirizzo_avversario(indirizzo);
                 if (!campi[1].equals("")) {
                     cond.setNome_avversario(campi[1]);
                     valido = true;
                 } else {
                     try {
                         gm.invia("n", "");
+                        cond.setIndirizzo_avversario(null);
                     } catch (IOException ex) {
                         Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 if (valido) {
                     try {
-                        int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi parlare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
+                        int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi giocare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (dialogResult == JOptionPane.YES_OPTION) {
-                            gm.invia("y", "D'Ippolito");
+                            String nome = JOptionPane.showInputDialog(null, "Inserisci il tuo nickname");
+                            gm.invia("y", nome);
                             cond.inAttesa = true;
                         } else if (dialogResult == JOptionPane.NO_OPTION) {
                             try {
                                 gm.invia("n", "");
+                                cond.setIndirizzo_avversario(null);
                             } catch (IOException ex) {
                                 Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -84,22 +88,36 @@ public class Thread_collegamento extends Thread {
                     }
                 }
             }
+            
+            if(cond.chiesto_io && campi[0].equals("y")){
+                if (!campi[1].equals("")) {
+                    cond.setNome_avversario(campi[1]);
+                    try {
+                        gm.invia("y", "");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    cond.collegato = true;
+                } else {
+                    try {
+                        gm.invia("n", "");
+                        cond.setIndirizzo_avversario(null);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
 
             valido = false;
 
             if (cond.inAttesa && campi[0].equals("y")) {
-                try {
-                    gm.invia("y", "collegato");
-                } catch (IOException ex) {
-                    Logger.getLogger(Thread_collegamento.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 cond.inAttesa = false;
                 cond.collegato = true;
             }
 
             if (cond.collegato) {
-                System.out.println("Nome: " + cond.getNome_avversario());
-                System.out.println("Indirizzo: " + cond.getIndirizzo());
+                System.out.println("Nome avversario: " + cond.getNome_avversario());
+                System.out.println("Indirizzo avversario: " + cond.getIndirizzo_avversario());
             }
         }
     }

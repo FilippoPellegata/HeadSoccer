@@ -20,13 +20,15 @@ import java.util.logging.Logger;
  */
 public class Gestore_messaggio {
     private DatagramSocket client;
+    JCondivisa cond;
 
-    public Gestore_messaggio(){
+    public Gestore_messaggio(JCondivisa cond){
         try {
             client = new DatagramSocket();
         } catch (SocketException ex) {
             Logger.getLogger(Gestore_messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.cond = cond;
     }
     
     public void invia(String operazione, int data) throws UnknownHostException, IOException{
@@ -35,7 +37,7 @@ public class Gestore_messaggio {
         
         DatagramPacket pacchetto = new DatagramPacket(responseBuffer, responseBuffer.length);
         //pacchetto.setAddress(InetAddress.getByName("localhost"));
-        pacchetto.setAddress(InetAddress.getByName("192.168.1.17"));
+        pacchetto.setAddress(InetAddress.getByName(cond.getIndirizzo_avversario()));
         pacchetto.setPort(666);
 
         client.send(pacchetto);
@@ -60,7 +62,7 @@ public class Gestore_messaggio {
         
         DatagramPacket pacchetto = new DatagramPacket(responseBuffer, responseBuffer.length);
         //pacchetto.setAddress(InetAddress.getByName("localhost"));
-        pacchetto.setAddress(InetAddress.getByName("192.168.1.17"));
+        pacchetto.setAddress(InetAddress.getByName(cond.getIndirizzo_avversario()));
         pacchetto.setPort(666);
 
         client.send(pacchetto);
