@@ -19,6 +19,7 @@ public class JCondivisa {
     String nome;
     String nome_avversario;
     String indirizzo_avversario;
+    int larghezza_frame_avversario;
     boolean collegato;
     boolean inAttesa;
     boolean chiesto_io;
@@ -32,6 +33,7 @@ public class JCondivisa {
         chiesto_io = false; 
         nome_avversario = "";
         nome = "";
+        larghezza_frame_avversario = -1;
         try {
             server = new DatagramSocket(666);
         } catch (SocketException ex) {

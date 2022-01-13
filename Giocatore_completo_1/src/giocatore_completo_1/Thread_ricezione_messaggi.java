@@ -62,8 +62,13 @@ public class Thread_ricezione_messaggi extends Thread {
             if (cond.collegato && campi[0].equals("m")) {
                 //System.out.println(campi[1]);
                 int pos_x_avversario = Integer.parseInt(campi[1]);
-                //int new_pos = (pos_avversario*larghezza_frame)/cond.larghezza_frame_avversario;
-                int new_pos = larghezza_frame - pos_x_avversario;
+                int new_pos = (larghezza_frame - (pos_x_avversario*larghezza_frame)/cond.larghezza_frame_avversario);
+                
+                /*System.out.println("larghezza_frame: " + larghezza_frame);
+                System.out.println("pos_x_avversario: " + pos_x_avversario);
+                System.out.println("cond.larghezza_frame_avversario: " + cond.larghezza_frame_avversario);
+                System.out.println("new_pos: " + new_pos);*/
+                
                 giocatore_nemico.setPos_x(new_pos);
             }
             if (cond.collegato && campi[0].equals("s")) {

@@ -15,15 +15,20 @@ import java.util.logging.Logger;
  */
 public class FrameCollegamento extends javax.swing.JFrame {
 
-    JCondivisa cond;
-    Thread_collegamento tc;
-    Gestore_messaggio gm;
-    Thread_controllo_collegato tcc;
+    static JCondivisa cond;
+    static Thread_collegamento tc;
+    static Gestore_messaggio gm;
+    static Thread_controllo_collegato tcc;
+
     public FrameCollegamento() {
         initComponents();
+        System.out.println("prima: " + this.getWidth());
+        this.setExtendedState(FrameCollegamento.MAXIMIZED_BOTH);
+        this.setVisible(true);
+        System.out.println("dopo: " + this.getWidth());
         cond = new JCondivisa();
         gm = new Gestore_messaggio(cond);
-        tc = new Thread_collegamento(cond);
+        tc = new Thread_collegamento(cond, this.getWidth());
         tcc = new Thread_controllo_collegato(cond, this);
         tc.start();
         tcc.start();
@@ -104,7 +109,8 @@ public class FrameCollegamento extends javax.swing.JFrame {
         cond.nome = txt_nome.getText();
         cond.setIndirizzo_avversario(txt_ip_avversario.getText());
         try {
-            gm.invia("c", cond.nome);
+            gm.invia("c", cond.nome, this.getWidth());
+            //gm.invia("c", cond.nome);
         } catch (IOException ex) {
             Logger.getLogger(FrameCollegamento.class.getName()).log(Level.SEVERE, null, ex);
         }

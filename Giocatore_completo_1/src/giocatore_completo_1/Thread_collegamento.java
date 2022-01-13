@@ -22,11 +22,13 @@ public class Thread_collegamento extends Thread {
     JCondivisa cond;
     Gestore_messaggio gm;
     boolean valido;
+    int larghezza_frame;
 
-    public Thread_collegamento(JCondivisa cond) {
+    public Thread_collegamento(JCondivisa cond, int larghezza_frame) {
         this.cond = cond;
         gm = new Gestore_messaggio(cond);
         valido = false;
+        this.larghezza_frame = larghezza_frame;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Thread_collegamento extends Thread {
             String IPClient = pacchettoRicezione.getAddress().toString();
             int portClient = pacchettoRicezione.getPort();
             String messaggio = new String(pacchettoRicezione.getData());
-            //System.out.println(messaggio);
+            System.out.println(messaggio);
 
             String[] campi = messaggio.split(";");
 
@@ -53,6 +55,7 @@ public class Thread_collegamento extends Thread {
                 cond.setIndirizzo_avversario(indirizzo);
                 if (!campi[1].equals("")) {
                     cond.setNome_avversario(campi[1]);
+                    cond.larghezza_frame_avversario = Integer.valueOf(campi[2]);
                     valido = true;
                 } else {
                     try {
@@ -67,7 +70,7 @@ public class Thread_collegamento extends Thread {
                         int dialogResult = JOptionPane.showConfirmDialog(null, "Vuoi giocare con " + campi[1] + "?", "Warning", JOptionPane.YES_NO_OPTION);
                         if (dialogResult == JOptionPane.YES_OPTION) {
                             String nome = JOptionPane.showInputDialog(null, "Inserisci il tuo nickname");
-                            gm.invia("y", nome);
+                            gm.invia("y", nome, larghezza_frame);
                             cond.nome = nome;
                             cond.inAttesa = true;
                         } else if (dialogResult == JOptionPane.NO_OPTION) {
@@ -87,6 +90,7 @@ public class Thread_collegamento extends Thread {
             if (cond.chiesto_io && campi[0].equals("y")) {
                 if (!campi[1].equals("")) {
                     cond.setNome_avversario(campi[1]);
+                    cond.larghezza_frame_avversario = Integer.valueOf(campi[2]);
                     try {
                         gm.invia("y", "");
                     } catch (IOException ex) {
