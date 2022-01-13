@@ -30,6 +30,7 @@ Porta porta;
 Porta porta2;
 ThreadInvioPalla tInvio;
 ThreadRiceviPalla tRicevi;
+Timer timer;
 
     public JFrame(JCondivisa cond) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -63,7 +64,8 @@ ThreadRiceviPalla tRicevi;
         trm.start();
         d.start();
         
-        
+        timer=new Timer(1000,this);
+        timer.start();
       tp=new ThreadPalla(p, this);
        tp.start();
       tInvio=new ThreadInvioPalla(this);
@@ -139,6 +141,8 @@ ThreadRiceviPalla tRicevi;
         return porta2.Gol2(p.getX(),p.getY());
         
     }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -322,6 +326,30 @@ ThreadRiceviPalla tRicevi;
             gImmagine.drawString(porta2.getRisultato(), (this.getWidth()/2)+100, 190);
         
                
+            gImmagine.drawString(timer.tempo+"", 150, 150);
+            
+            
+            
+            if(timer.isTerminato()==true){
+             
+          //fine
+         gImmagine.setColor(Color.BLUE);
+        gImmagine.fillRect(0,0,this.getWidth(),this.getHeight());
+        gImmagine.setColor(Color.black.darker());
+        
+        
+         Font f3 = new Font(Font.MONOSPACED, Font.BOLD, 1700);
+            gImmagine.setFont(f);
+            
+        if(Integer.parseInt(porta.getRisultato())==5){
+            gImmagine.drawString("giocatore 1 vince", 500, 500);
+        }else if(Integer.parseInt(porta2.getRisultato())==5){
+            gImmagine.drawString("giocatore 2 vince", 500, 500);
+        }
+        
+           
+            }
+            
         g.drawImage(immagine, 0, 0, this); 
       
     }
