@@ -19,8 +19,8 @@ public class Thread_invio_salto extends Thread{
     JGiocatore g;
     int vecchia_pos_y;
 
-    public Thread_invio_salto(JGiocatore g) {
-        gm = new Gestore_messaggio();
+    public Thread_invio_salto(JGiocatore g, Gestore_messaggio gm) {
+        this.gm = gm;
         this.g = g;
         vecchia_pos_y = 500;
     }

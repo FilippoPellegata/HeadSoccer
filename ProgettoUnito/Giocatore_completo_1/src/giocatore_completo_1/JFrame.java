@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
  */
 public class JFrame extends javax.swing.JFrame {
 
+    static JCondivisa cond;
     JGiocatore giocatore;
     JGiocatore giocatore_avversario;
     Palla p; // e' necessario avere la palla qui o basterebbe averla dentro il threadpalla? Che se la crea autonomamente
@@ -30,13 +31,13 @@ Porta porta2;
 ThreadInvioPalla tInvio;
 ThreadRiceviPalla tRicevi;
 
-    public JFrame() {
+    public JFrame(JCondivisa cond) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         
         this.setVisible(true);
         JCondivisa condivisa = new JCondivisa();
-       
+       Gestore_messaggio gm = new Gestore_messaggio(condivisa);
         giocatore = new JGiocatore("Personaggio", this, 10, 150, 800, 50, 100);
         giocatore_avversario = new JGiocatore("Avversario", this, 10, 150, 800, 50, 100);
         
@@ -53,9 +54,9 @@ ThreadRiceviPalla tRicevi;
        
         
            Disegna d = new Disegna(this, 30);
-        Thread_invio_pos tip = new Thread_invio_pos(giocatore, 30, this.getWidth());
-        Thread_invio_salto tis = new Thread_invio_salto(giocatore);
-        Thread_ricezione_messaggi trm = new Thread_ricezione_messaggi(condivisa, giocatore_avversario, this.getWidth());
+        Thread_invio_pos tip = new Thread_invio_pos(giocatore, 30, this.getWidth(), gm);
+        Thread_invio_salto tis = new Thread_invio_salto(giocatore, gm);
+         Thread_ricezione_messaggi trm = new Thread_ricezione_messaggi(condivisa, giocatore_avversario, this.getWidth(), gm);
         
         tip.start();
         tis.start();
@@ -70,6 +71,8 @@ ThreadRiceviPalla tRicevi;
       tRicevi=new ThreadRiceviPalla(this);
       tRicevi.start();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -133,7 +136,7 @@ ThreadRiceviPalla tRicevi;
         
     }
     public boolean checkGolDestra(){
-        return porta2.Gol(p.getX(),p.getY());
+        return porta2.Gol2(p.getX(),p.getY());
         
     }
     /**
@@ -169,7 +172,7 @@ ThreadRiceviPalla tRicevi;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame().setVisible(true);
+                new JFrame(cond).setVisible(true);
             }
         });
     }

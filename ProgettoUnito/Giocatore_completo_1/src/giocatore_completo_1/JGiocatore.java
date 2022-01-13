@@ -106,7 +106,7 @@ public class JGiocatore {
     }
     
      public boolean isRight(int x, int y) {
-        if (x>=pos_x+10&&x<=pos_x+15&& y>this.pos_y && y < this.pos_y + altezza) {
+        if (x>=pos_x+3&&x<=pos_x+lunghezza&& y>this.pos_y && y < this.pos_y + altezza) {
             return true;
         } else {
             return false;
