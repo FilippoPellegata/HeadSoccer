@@ -19,12 +19,13 @@ public class keyEvent_movimento implements KeyListener {
     JGiocatore giocatore;
     boolean a_pressed;
     boolean d_pressed;
-    
+ 
 
     public keyEvent_movimento(JGiocatore g) {
         giocatore = g;
         a_pressed = false;
         d_pressed = false;
+        
     }
 
     @Override

@@ -6,6 +6,7 @@
 package giocatore_completo_1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -37,7 +38,7 @@ ThreadRiceviPalla tRicevi;
         JCondivisa condivisa = new JCondivisa();
        
         giocatore = new JGiocatore("Personaggio", this, 10, 150, 800, 50, 100);
-        giocatore_avversario = new JGiocatore("Personaggio", this, 10, 150, 800, 50, 100);
+        giocatore_avversario = new JGiocatore("Avversario", this, 10, 150, 800, 50, 100);
         
         this.addKeyListener(new keyEvent_movimento(giocatore));
         this.addKeyListener(new keyEvent_salta(giocatore, condivisa));
@@ -108,7 +109,9 @@ ThreadRiceviPalla tRicevi;
     public boolean checkRight(int x, int y) {
         return giocatore.isRight(x, y);
     }
-    
+    public boolean checkTerreno(int x, int y) {
+        return p.toccaTerreno();
+    }
     public double getVelocita() {
         return p.getVelocita();
     }
@@ -127,6 +130,11 @@ ThreadRiceviPalla tRicevi;
     
     public boolean checkGol(){
         return porta.Gol(p.getX(),p.getY());
+        
+    }
+    public boolean checkGolDestra(){
+        return porta2.Gol(p.getX(),p.getY());
+        
     }
     /**
      * @param args the command line arguments
@@ -171,11 +179,6 @@ ThreadRiceviPalla tRicevi;
         
         //pelle-----------------------------------------------------------------------------------------
         
-        
-        
-        
-        
-        
         Image immagine = createImage(this.getWidth(),this.getHeight());
         Graphics gImmagine = immagine.getGraphics();
         
@@ -203,20 +206,26 @@ ThreadRiceviPalla tRicevi;
             
              Image personaggio = null;
     try {
-         personaggio= ImageIO.read(new File("personaggio.jpeg"));
+         personaggio= ImageIO.read(new File("personaggio.png"));
+    } catch (IOException ex) {
+        Logger.getLogger(JFrame.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    Image personaggio2 = null;
+    try {
+         personaggio2= ImageIO.read(new File("player2.jpeg"));
     } catch (IOException ex) {
         Logger.getLogger(JFrame.class.getName()).log(Level.SEVERE, null, ex);
     }
             //player
            gImmagine.setColor(Color.green);
            gImmagine.drawImage(personaggio, giocatore.getX(), giocatore.getY(), giocatore.getLunghezza(), giocatore.getAltezza(), rootPane);
-       
         giocatore.Update();
         giocatore.Update();
-        //player2
-        gImmagine.setColor(Color.red);
-        gImmagine.fillRect(giocatore_avversario.getX(), giocatore_avversario.getY(), giocatore_avversario.getLunghezza(), giocatore_avversario.getAltezza());
         
+        //player2
+       gImmagine.setColor(Color.green);
+           gImmagine.drawImage(personaggio2, giocatore_avversario.getX(), giocatore_avversario.getY(), giocatore_avversario.getLunghezza(), giocatore_avversario.getAltezza(), rootPane);
+       
         
         //porta
         //rete
@@ -265,8 +274,52 @@ ThreadRiceviPalla tRicevi;
         gImmagine.fillRect(porta2.getxPalo(), porta2.getyPalo() ,porta2.getLarghezzaPalo(), porta2.getLunghezzaPalo());
         
         
+       // Tabellone
+          //aste tabellone
+         gImmagine.setColor(Color.black.brighter());
+        gImmagine.fillRect((this.getWidth()/2)-30,0,10,70);
+        gImmagine.setColor(Color.black.brighter());
+        gImmagine.fillRect((this.getWidth()/2)+30,0,10,70);
         
-        g.drawImage(immagine, 0, 0, this);
+        
+          //lavagna tabellone
+         gImmagine.setColor(Color.red.brighter());
+        gImmagine.fillRect((this.getWidth()/2)-200,70,400,150);
+            //divisione
+            gImmagine.setColor(Color.black);
+            gImmagine.drawLine(this.getWidth()/2, 70, this.getWidth()/2, 220);
+            
+            
+        Font f = new Font(Font.MONOSPACED, Font.BOLD, 20);
+            gImmagine.setFont(f);
+            //giocatore1
+          
+            
+            gImmagine.drawString(giocatore.getPersonaggio(), (this.getWidth()/2)-150, 100);
+            
+            //giocatore2
+            
+            
+            gImmagine.drawString(giocatore_avversario.getPersonaggio(), (this.getWidth()/2)+30, 100);
+            
+            //linea divisione da risultato
+            gImmagine.setColor(Color.black);
+            gImmagine.drawLine((this.getWidth()/2)-200, 120, this.getWidth()/2+200, 120);
+            
+            
+            //risultato
+            Font f2 = new Font(Font.MONOSPACED, Font.BOLD, 50);
+            gImmagine.setFont(f2);
+            
+            
+            gImmagine.drawString(porta.getRisultato(), (this.getWidth()/2)-110, 190);
+            
+             
+            
+            gImmagine.drawString(porta2.getRisultato(), (this.getWidth()/2)+100, 190);
+        
+               
+        g.drawImage(immagine, 0, 0, this); 
       
     }
 

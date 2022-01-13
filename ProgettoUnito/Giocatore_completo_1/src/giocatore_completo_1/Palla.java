@@ -81,5 +81,12 @@ public class Palla {
         this.velocita = velocita;
     }
     
-    
+    public boolean toccaTerreno(){
+        if (y==900) {
+            System.out.println("rimbalzo terreno");
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

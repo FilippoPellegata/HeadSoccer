@@ -75,16 +75,22 @@ public class JGiocatore {
         }
             
     }
+
+    public String getPersonaggio() {
+        return Personaggio;
+    }
+    
+    
     
     public boolean isTop(int x, int y) {
-        if (x >= this.pos_x && x <= this.pos_x + lunghezza && y >= this.pos_y && y <= this.pos_y + altezza) {
+        if (x >= this.pos_x && x <= this.pos_x + lunghezza && y == this.pos_y && y <= this.pos_y +10) {
             return true;
         } else {
             return false;
         }
     }
     public boolean isBot(int x, int y) {
-        if (x >= this.pos_x && x <= this.pos_x + lunghezza && y >= this.pos_y && y >= this.pos_y + altezza) {
+        if (x >= this.pos_x && x <= this.pos_x + lunghezza && y >= this.pos_y+altezza+10&& y <= this.pos_y+altezza+20) {
             return true;
         } else {
             return false;
@@ -92,7 +98,7 @@ public class JGiocatore {
     }
     
     public boolean isLeft(int x, int y) {
-        if (x == this.pos_x  && (y >= this.pos_y && y <= this.pos_y + altezza)) {
+        if (x <= this.pos_x&& x >= this.pos_x-3 && y > this.pos_y && y < this.pos_y + altezza) {
             return true;
         } else {
             return false;
@@ -100,7 +106,7 @@ public class JGiocatore {
     }
     
      public boolean isRight(int x, int y) {
-        if (x == this.pos_x + lunghezza && (y >= this.pos_y && y <= this.pos_y + altezza)) {
+        if (x>=pos_x+10&&x<=pos_x+15&& y>this.pos_y && y < this.pos_y + altezza) {
             return true;
         } else {
             return false;

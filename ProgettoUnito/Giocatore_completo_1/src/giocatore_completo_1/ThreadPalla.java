@@ -33,7 +33,11 @@ public class ThreadPalla extends Thread{
         while(stato==0){
             
             saliInizioPartita();
-            scendiInizioPartita();
+            try {
+                scendiInizioPartita();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ThreadPalla.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             try {
                 Thread.sleep(10);
@@ -67,7 +71,7 @@ public class ThreadPalla extends Thread{
  }
     }
     
-    public void scendiInizioPartita() {
+    public void scendiInizioPartita() throws InterruptedException {
         int stato = 1;
         
         while (stato == 1) {
@@ -97,9 +101,11 @@ public class ThreadPalla extends Thread{
                 RimbalzaDestra();
                 
             }
-           
+           if(campo.checkTerreno(p.getX(), p.getY())){
+               rimbalzaTerreno();
+           }
             
-            if (p.getY() > campo.getHeight() - 100) {
+            if (p.getY() > campo.getHeight() - 150) {
                 p.decY();
                 
                 System.out.println("stop discesa");
@@ -112,7 +118,7 @@ public class ThreadPalla extends Thread{
         }
         
     }
-    public void RimbalzaSopra(){
+    public void RimbalzaSopra() throws InterruptedException{
          p.setDirezione(1);
         int stato = 0;//0= sale //1=scende //2=libero
         int cont=0;
@@ -137,27 +143,28 @@ public class ThreadPalla extends Thread{
                 stato = 2;
                 RimbalzaSopra();
                 return;
-            }
-            if (campo.checkBot(p.getX(), p.getY())) {
+            }else if (campo.checkBot(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSotto();
                 return;
             }
-            if (campo.checkLeft(p.getX(), p.getY())) {
+                else if (campo.checkLeft(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSinistra();
                 return;
             }
-            if (campo.checkRight(p.getX(), p.getY())) {
+                else if (campo.checkRight(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaDestra();
                 return;
             }
-                else{
+                else if(campo.checkTerreno(p.getX(), p.getY())==false){
                         
                         
                 p.incY();
-                        }
+                        }else{
+                rimbalzaTerreno();
+            }
                  try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
@@ -172,13 +179,13 @@ public class ThreadPalla extends Thread{
     }
     
     
-    public void RimbalzaSotto(){
+    public void RimbalzaSotto() throws InterruptedException{
          p.setDirezione(2);
        int stato = 0;//0= sale //1=scende //2=libero
         int cont=0;
-        if(stato==0){
-        scendiInizioPartita();
-        stato=1;
+        if(campo.checkBot(p.getX(), p.getY())){
+            System.out.println("rimbalzo sottoooooooooooooooooooooooooooooooooooooooooooo");
+        p.incY();
         }
         
         if(stato==1){
@@ -189,26 +196,25 @@ public class ThreadPalla extends Thread{
                 RimbalzaSopra();
                 return;
             }
-            if (campo.checkBot(p.getX(), p.getY())) {
-                stato = 2;
-                RimbalzaSotto();
-                return;
-            }
-            if (campo.checkLeft(p.getX(), p.getY())) {
+               
+                else if (campo.checkLeft(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSinistra();
                 return;
             }
-            if (campo.checkRight(p.getX(), p.getY())) {
+                else if (campo.checkRight(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaDestra();
                 return;
             }
-                else{
-                        
-                        
-                p.incY();
+                 else if(campo.checkTerreno(p.getX(), p.getY())==false){
+                        if(p.getY()>850){
+                   p.decY();
+                   Thread.sleep(1);
+                        }else if (campo.checkTerreno(p.getX(), p.getY())==true&&p.getY()<850){
+                rimbalzaTerreno();
                         }
+            }
                  try {
                     Thread.sleep(1);
                 } catch (InterruptedException ex) {
@@ -221,11 +227,13 @@ public class ThreadPalla extends Thread{
         
         
     }
-    public void RimbalzaSinistra(){
+    public void RimbalzaSinistra() throws InterruptedException{
+        System.out.println("rimbalzo sinistra");
         int stato = 0;
           p.setDirezione(3);
-        if(stato==0){
-        while (campo.checkGol()==false) {
+           
+        while (stato==0&&campo.checkGol()==false) {
+         
                 p.decX();
                   
                  try {
@@ -238,35 +246,36 @@ public class ThreadPalla extends Thread{
                 RimbalzaSopra();
                 return;
             }
-            if (campo.checkBot(p.getX(), p.getY())) {
+             else if (campo.checkBot(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSotto();
                 return;
             }
-            if (campo.checkLeft(p.getX(), p.getY())) {
-                stato = 2;
-                RimbalzaSinistra();
-                return;
-            }
-            if (campo.checkRight(p.getX(), p.getY())) {
+             
+             else if (campo.checkRight(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaDestra();
                 return;
             }
-        }
-        }
+             
+            
+             
+        
         
         
       
+        }
     }
     
     
     
-    public void RimbalzaDestra(){
+    public void RimbalzaDestra() throws InterruptedException{
+         System.out.println("rimbalzo destra");
         int stato = 0;
-          p.setDirezione(3);
-        if(stato==0){
-        while (campo.checkGol()==false) {
+          p.setDirezione(4);
+           
+        while (stato==0&&campo.checkGolDestra()==false) {
+         
                 p.incX();
                   
                  try {
@@ -279,23 +288,75 @@ public class ThreadPalla extends Thread{
                 RimbalzaSopra();
                 return;
             }
-            if (campo.checkBot(p.getX(), p.getY())) {
+             else if (campo.checkBot(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSotto();
                 return;
             }
-            if (campo.checkLeft(p.getX(), p.getY())) {
+             
+             else if (campo.checkLeft(p.getX(), p.getY())) {
                 stato = 2;
                 RimbalzaSinistra();
                 return;
             }
-            if (campo.checkRight(p.getX(), p.getY())) {
-                stato = 2;
-                RimbalzaDestra();
-                return;
+             
+             
+            
+        
+        
+        
+        
+      
+        }
+    }
+    
+    public void rimbalzaTerreno() throws InterruptedException{
+        
+        int stato=0;
+    int sali=0;
+        while(stato==0&&sali<101){
+            
+            p.decY();
+
+         if (campo.checkTop(p.getX(), p.getY())) {
+              stato=1;
+                RimbalzaSopra();
+              
             }
+                else if (campo.checkBot(p.getX(), p.getY())) {
+               stato=1;
+                RimbalzaSotto();
+               
+            }
+                else if (campo.checkLeft(p.getX(), p.getY())) {
+               stato=1;
+                RimbalzaSinistra();
+               
+            }
+                else if (campo.checkRight(p.getX(), p.getY())) {
+                stato=1;
+                RimbalzaDestra();
+               
+            }
+         sali++;
+         Thread.sleep(1);
+        
+        while(sali>=100&&sali<=151){
+            System.out.println("Terreno scendi");
+            p.incY();
+            Thread.sleep(1);
+            sali++;
+            if(sali==100)
+            {
+                sali=0;
+                 
+                
+            }
+            
         }
+        
         }
+       
     }
      
 }

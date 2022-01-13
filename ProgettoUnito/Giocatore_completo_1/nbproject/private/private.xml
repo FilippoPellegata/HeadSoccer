@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/ThreadPalla.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/Porta.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/JFrame.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/JGiocatore.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/ThreadRiceviPalla.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/Disegna.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/ThreadInvioPalla.java</file>
-            <file>file:/C:/Users/Pelle/Desktop/Progetto_Unione/HeadSoccer-main/Giocatore_completo_1/src/giocatore_completo_1/Palla.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/JGiocatore.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/ThreadPalla.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/JCondivisa.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/Palla.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/JFrame.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/keyEvent_movimento.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/ThreadRiceviPalla.java</file>
+            <file>file:/D:/GitHub/HeadSoccer/ProgettoUnito/Giocatore_completo_1/src/giocatore_completo_1/Porta.java</file>
         </group>
     </open-files>
 </project-private>

@@ -21,6 +21,8 @@ public class Porta {
     private int lunghezzaPalo;
     private int larghezzaPalo;
 
+    
+    private int risultato;
     public Porta(JFrame campo, int x, int y, int larghezza, int lunghezza, int xp, int yp, int larp, int lungp) {
         this.campo = campo;
         xTraversa=x;
@@ -32,6 +34,7 @@ public class Porta {
        larghezzaPalo=larp;
        yPalo=yp;
        lunghezzaPalo=lungp;
+       risultato=0;
     }
 
     public int getxTraversa() {
@@ -66,13 +69,19 @@ public class Porta {
         return larghezzaPalo;
     }
 
+    public String getRisultato() {
+        return risultato+"";
+    }
+    
+    
+
     public boolean Gol(int xPalla, int yPalla){
         if(xPalla<xPalo&& yPalla>yTraversa){
           System.out.println("gol");
-                campo.p.setX(campo.getWidth()+500);
-                campo.p.setY(campo.getHeight()+450);
+                campo.p.setX(campo.getWidth()/2);
+                campo.p.setY(campo.getHeight()-450);
                 campo.p.setDirezione(0);
-               
+               risultato++;
         
         return true;
         }else{
